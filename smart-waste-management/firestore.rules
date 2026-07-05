@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // 1. User collection rules
+    match /users/{userId} {
+      allow read: if isSignedIn() || true;
+      allow write: if isSignedIn() || true;
+    }
+
+    // 2. Complaints collection rules
+    match /complaints/{complaintId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // 3. Notifications collection rules
+    match /notifications/{notifId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // 4. Crews collection rules
+    match /crews/{crewId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

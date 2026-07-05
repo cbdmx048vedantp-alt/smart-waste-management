@@ -1,0 +1,10 @@
+{
+  "name": "Smart Waste Management",
+  "description": "AI-powered civic waste reporter and municipal collection optimizer for Sustainable Cities (SDG 11).",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with points and role",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["citizen", "admin"] },
+        "points": { "type": "number" },
+        "avatar": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "name", "role", "points", "createdAt"]
+    },
+    "Complaint": {
+      "title": "Complaint",
+      "description": "Waste issue report with AI details and location",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "citizenId": { "type": "string" },
+        "citizenName": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "description": { "type": "string" },
+        "wasteType": { "type": "string" },
+        "confidence": { "type": "number" },
+        "severity": { "type": "number" },
+        "priority": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "cleanlinessRating": { "type": "string" },
+        "environmentalImpact": { "type": "string" },
+        "recommendation": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "address": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "assigned", "resolved"] },
+        "assignedTo": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "qrCode": { "type": "string" },
+        "comments": { "type": "array" }
+      },
+      "required": ["id", "citizenId", "imageUrl", "wasteType", "lat", "lng", "status", "createdAt", "updatedAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User notifications for reports",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "message", "read", "createdAt"]
+    },
+    "Crew": {
+      "title": "Crew",
+      "description": "Real-time tracking of cleaning crew position and status",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "status": { "type": "string", "enum": ["idle", "on_route", "active_cleaning"] },
+        "assignedComplaintId": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "lat", "lng", "status", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "complaints/{complaintId}": {
+      "schema": "Complaint",
+      "description": "Reported waste complaints"
+    },
+    "notifications/{notifId}": {
+      "schema": "Notification",
+      "description": "User notification alerts"
+    },
+    "crews/{crewId}": {
+      "schema": "Crew",
+      "description": "Cleaning crew trackers"
+    }
+  }
+}
